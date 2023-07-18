@@ -5,6 +5,7 @@ import com.skye8.elroykanye.hyrrebus.data.entity.Agency;
 import com.skye8.elroykanye.hyrrebus.data.entity.AgencyAddress;
 import com.skye8.elroykanye.hyrrebus.data.repository.AgencyRepository;
 import com.skye8.elroykanye.hyrrebus.business.service.AgencyService;
+import com.skye8.elroykanye.hyrrebus.exception.EntityException;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,12 +21,10 @@ public class AgencyServiceImpl implements AgencyService {
     private final AgencyRepository agencyRepository;
 
     @Override
-    public boolean addAgency(AgencyRequest newAgency) {
-        boolean success = false;
-        AgencyAddress agencyAddress = AgencyAddress.builder()
-                .region(newAgency.getRegion())
-                .town(newAgency.getTown())
-                .street(newAgency.getStreet())
+    @Transactional
+    public String addAgency(AgencyRequest newAgency) {
+        AgencyAddress agencyAddress = AgencyAddress.builder().region(newAgency.getRegion())
+                .town(newAgency.getTown()).street(newAgency.getStreet())
                 .build();
         Agency agency = Agency.builder()
                 .agencyName(newAgency.getName())
@@ -33,19 +32,14 @@ public class AgencyServiceImpl implements AgencyService {
 
         // set the child ref
         agencyAddress.setAgency(agency);
-
         // set the parent ref
         agency.setAgencyAddress(agencyAddress);
 
-        // save the parent, which will save the child
-        try {
-            agencyRepository.save(agency);
-            success = true;
-        } catch (Exception e) {
-            e.printStackTrace();
-
+        if(agencyRepository.existsById(agency.getAgencyId())) {
+            throw new EntityException.EntityAlreadyExistsException("agency", agency.getAgencyId());
         }
-        return success;
+        agencyRepository.save(agency);
+        return "Agency added successfully";
     }
 
     @Override

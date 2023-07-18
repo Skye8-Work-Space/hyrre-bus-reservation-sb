@@ -22,7 +22,6 @@ public interface TravelRouteMapper {
     @Mapping(target="busDropPoint", ignore = true)
     @Mapping(target="busBoardPoint", ignore = true)
     @Mapping(target="travelSchedule", ignore = true)
-    @Mapping(target="travelSchedule", ignore = true)
     TravelRoute mapDtoToTravelRoute (TravelRouteDto travelRouteDto);
 }
 

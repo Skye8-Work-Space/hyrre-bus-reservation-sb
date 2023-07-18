@@ -13,5 +13,4 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 @RequestMapping(value = "/api/travel_schedule")
 public class TravelScheduleController {
-    private final TravelScheduleService TravelScheduleService;
 }

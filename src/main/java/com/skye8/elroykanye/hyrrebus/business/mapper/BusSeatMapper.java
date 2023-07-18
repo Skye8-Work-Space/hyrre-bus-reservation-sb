@@ -13,7 +13,9 @@ import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring", implementationPackage = "<PACKAGE_NAME>.impl")
 public interface BusSeatMapper {
-    BusSeatDto mapBusSeatToDto( BusSeat busSeat);
+    @Mapping(target = "busId", expression = "java(busSeat.getBus().getBusId())")
+    @Mapping(target = "travelScheduleId", expression = "java(busSeat.getTravelSchedule().getScheduleId())")
+    BusSeatDto mapBusSeatToDto(BusSeat busSeat);
 
     @InheritInverseConfiguration
     @Mapping(target = "bus", ignore = true)

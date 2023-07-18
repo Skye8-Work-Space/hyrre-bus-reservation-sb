@@ -2,6 +2,7 @@ package com.skye8.elroykanye.hyrrebus.api.dto;
 
 import lombok.*;
 
+import java.sql.Date;
 import java.time.Instant;
 
 /**
@@ -17,8 +18,6 @@ public class TravelScheduleDto {
     private Long scheduleId;
 
     private Instant departureDate;
-
-    private Instant departureTime;
 
     private Long totalFare;
 }

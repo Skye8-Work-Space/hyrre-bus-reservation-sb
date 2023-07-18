@@ -15,13 +15,10 @@ import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring", implementationPackage = "<PACKAGE_NAME>.impl")
 public interface CustomerMapper {
- main
-
-
     CustomerDto mapCustomerDtoTo (Customer customer);
 
     @InheritInverseConfiguration
-    @Mapping(target = "travelSchedueles", ignore = true)
+    @Mapping(target = "travelSchedules", ignore = true)
     Customer mapCustomerDtoTo(CustomerDto customerDto);
 
 }

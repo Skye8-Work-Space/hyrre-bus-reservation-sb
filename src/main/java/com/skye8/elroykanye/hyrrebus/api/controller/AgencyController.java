@@ -19,10 +19,7 @@ public class AgencyController {
 
     @PostMapping(value = "/new", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> add(@RequestBody AgencyRequest newAgency) {
-        boolean success = agencyService.addAgency(newAgency);
-        return success ?
-                new ResponseEntity<>("Agency added", HttpStatus.CREATED):
-                new ResponseEntity<>("Agency not added", HttpStatus.CONFLICT);
+        return new ResponseEntity(agencyService.addAgency(newAgency), HttpStatus.CREATED);
     }
 
     @GetMapping("/all")

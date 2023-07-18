@@ -17,11 +17,15 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring", implementationPackage = "<PACKAGE_NAME>.impl")
 
 public interface AgencyUserMapper {
+    @Mapping(target = "agencyId", expression = "java(mapAgencyUserToDtoAgencyId(agencyUser))")
     AgencyUserDto mapAgencyUserToDto (AgencyUser agencyUser);
+
+    default Long mapAgencyUserToDtoAgencyId(AgencyUser agencyUser) {
+        return agencyUser.getAgency().getAgencyId();
+    }
 
     @InheritInverseConfiguration
     @Mapping(target = "password", ignore = true)
-    @Mapping(target = "lastName", ignore = true)
     @Mapping(target = "agency", ignore = true)
     AgencyUser mapDtoToAgencyUser(AgencyUserDto agencyUserDto);
 }

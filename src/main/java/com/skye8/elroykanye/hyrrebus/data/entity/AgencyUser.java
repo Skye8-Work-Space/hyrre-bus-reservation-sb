@@ -47,7 +47,7 @@ public class AgencyUser implements Serializable {
     private String phoneNumber;
 
     @OneToOne(cascade = CascadeType.ALL, optional = false, orphanRemoval = true)
-    @JoinColumn(name = "agency_agency_id", nullable = false)
+    @JoinColumn(name = "agency_agency_id", nullable = true)
     private Agency agency;
 
 }

@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 
 public interface AgencyService {
-    boolean addAgency(AgencyRequest newAgency);
+    String addAgency(AgencyRequest newAgency);
 
     List<Agency> getAllAgencies();
 
